@@ -8,8 +8,6 @@ import org.springframework.stereotype.Repository;
 import com.todoapp.taskmanager.models.Task;
 
 @Repository
-@N1qlPrimaryIndexed
-@ViewIndexed(designDoc = "task")
 public interface TaskRepository extends CouchbaseRepository<Task, Integer> {
 
 }

@@ -27,8 +27,8 @@ public class Task {
 	private String desc;
 	@ApiModelProperty(value = "priority (HIGH, MEDIUM, LOW) field of task object")
 	private String priority;
-	@ApiModelProperty(value = "isDone field showing whether the task has been done or not")
-	private boolean isDone;
+	@ApiModelProperty(value = "isCompleted field showing whether the task has been done or not")
+	private boolean isCompleted;
 	@ApiModelProperty(value = "createdBy field showing who created the task")
 	private String createdBy;
 }

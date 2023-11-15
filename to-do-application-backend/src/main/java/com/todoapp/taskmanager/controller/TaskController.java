@@ -31,7 +31,9 @@ public class TaskController {
     @PostConstruct
     public void initExampleTaskRepo() {
         try {
-            taskService.save(new Task(2, "example2", "ex", Constants.high, true, "exby"));
+            taskService.save(new Task(1, "example1", "ex", Constants.medium, true, "user"));
+            taskService.save(new Task(2, "example2", "ex", Constants.low, true, "user"));
+            taskService.save(new Task(3, "example3", "ex", Constants.high, false, "newUser"));
             log.info("Task saved successfully");
         } catch (Exception e) {
             log.error("Error occured while saving");
@@ -75,7 +77,7 @@ public class TaskController {
             taskToUpdate.setName(updatedTask.getName());
             taskToUpdate.setDesc(updatedTask.getDesc());
             taskToUpdate.setPriority(updatedTask.getPriority());
-            taskToUpdate.setDone(updatedTask.isDone());
+            taskToUpdate.setCompleted(updatedTask.isCompleted());
             taskToUpdate.setCreatedBy(updatedTask.getCreatedBy());
             Task updatedTaskResult = taskService.save(taskToUpdate);
             return ResponseEntity.ok(updatedTaskResult);
