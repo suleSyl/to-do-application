@@ -67,21 +67,16 @@ public class TaskController {
         return ResponseEntity.status(HttpStatus.CREATED).body(savedTask);
     }
 
-    @PutMapping("/tasks")
-    @ApiOperation(value = "Updating task")
-    public ResponseEntity<Task> updateTask(@RequestBody Task updatedTask) {
-        log.info("REST request to update Task: {} " + updatedTask);
-        Optional<Task> existingTask = taskService.findById(updatedTask.getId());
-        if (existingTask.isPresent()) {
-            Task taskToUpdate = existingTask.get();
-            taskToUpdate.setName(updatedTask.getName());
-            taskToUpdate.setDesc(updatedTask.getDesc());
-            taskToUpdate.setPriority(updatedTask.getPriority());
-            taskToUpdate.setCompleted(updatedTask.isCompleted());
-            taskToUpdate.setCreatedBy(updatedTask.getCreatedBy());
-            Task updatedTaskResult = taskService.save(taskToUpdate);
+    @PutMapping("/tasks/{id}")
+    @ApiOperation(value = "Updating task by Id")
+    public ResponseEntity<Task> updateTaskById(@PathVariable int id, @RequestBody Task updatedTask) {
+        log.info("REST request to update Task. Id: {} Task: ", id, updatedTask);
+        Optional<Task> existingTask = taskService.findById(id);
+        try {
+            Task updatedTaskResult = taskService.updateTask(id, updatedTask);
             return ResponseEntity.ok(updatedTaskResult);
-        } else {
+        } catch (RuntimeException e) {
+            log.error("Error updating task: {}", e.getMessage());
             return ResponseEntity.notFound().build();
         }
     }

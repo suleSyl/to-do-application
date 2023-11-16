@@ -12,11 +12,9 @@ import com.todoapp.taskmanager.repository.TaskRepository;
 
 public interface TaskService {
 
-	public Task save(Task task);
-
 	public Optional<Task> findById(int id);
-
 	public List<Task> findAll();
-
+	public Task save(Task task);
+	public Task updateTask(int id, Task updatedTask);
 	public void deleteById(int id);
 }
