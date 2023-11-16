@@ -21,13 +21,11 @@ import javax.annotation.PostConstruct;
 @RequestMapping("/api")
 @CrossOrigin(origins = "http://localhost:3000")
 public class TaskController {
-
     private final Logger log = LoggerFactory.getLogger(TaskController.class);
     private final TaskService taskService;
     public TaskController(TaskService taskService) {
         this.taskService = taskService;
     }
-
     @PostConstruct
     public void initExampleTaskRepo() {
         try {
