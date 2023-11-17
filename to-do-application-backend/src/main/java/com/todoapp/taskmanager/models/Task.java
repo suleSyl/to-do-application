@@ -10,6 +10,8 @@ import lombok.Builder;
 import lombok.Data;
 
 import javax.persistence.Entity;
+import javax.validation.constraints.NotEmpty;
+import javax.validation.constraints.NotNull;
 
 @Entity
 @Data
@@ -22,6 +24,7 @@ public class Task {
 	@ApiModelProperty(value = "unique id field of task object")
 	private int id;
 	@ApiModelProperty(value = "name field of task object")
+	@NotEmpty(message = "Task cannot be empty")
 	private String name;
 	@ApiModelProperty(value = "description field of task object")
 	private String desc;

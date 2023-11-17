@@ -2,7 +2,7 @@ package com.todoapp.taskmanager.controller;
 
 import java.util.List;
 import java.util.Optional;
-
+import javax.validation.Valid;
 import org.slf4j.LoggerFactory;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -59,7 +59,7 @@ public class TaskController {
 
     @PostMapping(path = "/tasks")
     @ApiOperation(value = "Creating a new task")
-    public ResponseEntity<Task> createTask(@RequestBody Task task) {
+    public ResponseEntity<Task> createTask(@Valid @RequestBody Task task) {
         log.info("REST request to create Task: {}", task);
         Task savedTask = taskService.save(task);
         return ResponseEntity.status(HttpStatus.CREATED).body(savedTask);
