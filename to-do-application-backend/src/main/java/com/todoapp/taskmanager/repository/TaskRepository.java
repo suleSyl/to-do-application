@@ -8,6 +8,6 @@ import org.springframework.stereotype.Repository;
 import com.todoapp.taskmanager.models.Task;
 
 @Repository
-public interface TaskRepository extends CouchbaseRepository<Task, Integer> {
+public interface TaskRepository extends CouchbaseRepository<Task, String> {
 
 }

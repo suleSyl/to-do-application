@@ -13,7 +13,7 @@ public class TaskServiceImpl implements TaskService {
     @Autowired
     private TaskRepository taskRepository;
     @Override
-    public Optional<Task> findById(int id) {
+    public Optional<Task> findById(String id) {
         return taskRepository.findById(id);
     }
     @Override
@@ -25,13 +25,11 @@ public class TaskServiceImpl implements TaskService {
         return taskRepository.save(task);
     }
     @Override
-    public Task updateTask(int id, Task updatedTask) {
+    public Task updateTask(String id, Task updatedTask) {
         Optional<Task> existingTask = taskRepository.findById(id);
         if (existingTask.isPresent()) {
             Task taskToUpdate = existingTask.get();
             taskToUpdate.setName(updatedTask.getName());
-            taskToUpdate.setDesc(updatedTask.getDesc());
-            taskToUpdate.setPriority(updatedTask.getPriority());
             taskToUpdate.setCompleted(updatedTask.isCompleted());
             taskToUpdate.setCreatedBy(updatedTask.getCreatedBy());
             return taskRepository.save(taskToUpdate);
@@ -40,7 +38,7 @@ public class TaskServiceImpl implements TaskService {
         }
     }
     @Override
-    public void deleteById(int id) {
+    public void deleteById(String id) {
         taskRepository.deleteById(id);
     }
 }

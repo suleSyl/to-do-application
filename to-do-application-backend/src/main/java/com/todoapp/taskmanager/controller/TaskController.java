@@ -7,7 +7,6 @@ import org.slf4j.LoggerFactory;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
-import com.todoapp.taskmanager.service.util.Constants;
 import com.todoapp.taskmanager.models.Task;
 import com.todoapp.taskmanager.service.TaskService;
 import org.slf4j.Logger;
@@ -29,9 +28,9 @@ public class TaskController {
     @PostConstruct
     public void initExampleTaskRepo() {
         try {
-            taskService.save(new Task(1, "example1", "ex", Constants.medium, true, "user"));
-            taskService.save(new Task(2, "example2", "ex", Constants.low, true, "user"));
-            taskService.save(new Task(3, "example3", "ex", Constants.high, false, "newUser"));
+            taskService.save(new Task( "example1",  true, "user"));
+            taskService.save(new Task( "example2",  true, "user"));
+            taskService.save(new Task( "example3",  false, "newUser"));
             log.info("Task saved successfully");
         } catch (Exception e) {
             log.error("Error occured while saving");
@@ -40,7 +39,7 @@ public class TaskController {
 
     @GetMapping("/tasks/{id}")
     @ApiOperation(value = "Fetching task by Id")
-    public ResponseEntity<Task> getTaskById(@PathVariable int id) {
+    public ResponseEntity<Task> getTaskById(@PathVariable String id) {
         log.info("REST request to get Task. Id: " + id);
         return taskService.findById(id).map(ResponseEntity::ok).orElse(ResponseEntity.notFound().build());
     }
@@ -67,7 +66,7 @@ public class TaskController {
 
     @PutMapping("/tasks/{id}")
     @ApiOperation(value = "Updating task by Id")
-    public ResponseEntity<Task> updateTaskById(@PathVariable int id, @RequestBody Task updatedTask) {
+    public ResponseEntity<Task> updateTaskById(@PathVariable String id, @RequestBody Task updatedTask) {
         log.info("REST request to update Task. Id: {} Task: ", id, updatedTask);
         Optional<Task> existingTask = taskService.findById(id);
         try {
@@ -81,12 +80,17 @@ public class TaskController {
 
     @DeleteMapping("/tasks/{id}")
     @ApiOperation(value = "Deleting task by Id")
-    public ResponseEntity<Void> deleteTaskById(@PathVariable int id) {
+    public ResponseEntity<Void> deleteTaskById(@PathVariable String id) {
         log.info("REST request to delete Task. Id: " + id);
         Optional<Task> task = taskService.findById(id);
         if (task.isPresent()) {
-            taskService.deleteById(id);
-            return ResponseEntity.noContent().build();
+            try {
+                taskService.deleteById(id);
+                return ResponseEntity.noContent().build();
+            } catch (Exception e) {
+                log.error("Error deleting task: {}", e.getMessage());
+                return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).build();
+            }
         } else {
             return ResponseEntity.notFound().build();
         }
@@ -94,6 +98,6 @@ public class TaskController {
 
     @GetMapping(path = "/test")
     public Task getExample() {
-        return Task.builder().desc("test").id(3).name("exmp").build();
+        return Task.builder().id("3").name("exmp").build();
     }
 }
