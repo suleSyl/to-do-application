@@ -1,0 +1,30 @@
+/* App.css */
+
+.task-container {
+  margin: 20px;
+}
+
+.task-item {
+  display: flex;
+  align-items: center;
+  margin-bottom: 10px;
+  padding: 10px;
+  border: 1px solid #ccc;
+  border-radius: 5px;
+  background-color: #f9f9f9;
+}
+
+.completed-task {
+  text-decoration: line-through;
+  color: #555;
+}
+
+.delete-button {
+  cursor: pointer;
+  background-color: #ff5252;
+  color: #fff;
+  border: none;
+  padding: 5px 10px;
+  border-radius: 3px;
+  margin-left: 10px;
+}
