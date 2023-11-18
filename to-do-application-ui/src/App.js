@@ -1,5 +1,6 @@
 import logo from './logo.svg';
 import './App.css';
+import './style/custom-style.css';
 import Task from './components/Task';
 import { useEffect, useState } from 'react';
 
@@ -42,26 +43,27 @@ function App() {
     setTasks([...updatedTasks])
   }
 
-  return (
-      <>
-         <div>
-              <button onClick={createNewTask}>Add New Task</button>
-         </div>
-         <div>
-              {tasks
-                  ? tasks.map((task) => {
-                        return (
-                            <Task
-                               key={task.id}
-                               data={task}
-                               onDeleteTask={handleDeleteTask}
-                            />
-                        );
-                    })
-                  : 'loading data...'}
-         </div>
-      </>
-        );
+    return (
+        <div className="app-container">
+          <div className="header">
+            <h1>To-Do App</h1>
+            <button className="add-button" onClick={createNewTask}>
+              + Add New Task
+            </button>
+          </div>
+          <div className="task-list">
+            {tasks
+              ? tasks.map((task) => (
+                  <Task
+                    key={task.id}
+                    data={task}
+                    onDeleteTask={handleDeleteTask}
+                  />
+                ))
+              : 'Loading data...'}
+          </div>
+        </div>
+      );
 }
 
 export default App;
