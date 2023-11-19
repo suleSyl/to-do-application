@@ -52,15 +52,15 @@ function App() {
 
   useEffect(() => {
     console.log("Tasks loading")
-    if (!tasks) {
-        fetch('http://localhost:8080/api/tasks').then((response) =>
+    if (!tasks && isLoggedIn) {
+        fetch(`http://localhost:8080/api/tasks/user/${username}`).then((response) =>
             response.json())
             .then((data) => {
             console.log("Task list", data);
             setTasks(data);
             });
     }
-  }, [tasks]);
+  }, [tasks, isLoggedIn, username]);
 
   function createNewTask() {
      const createdByUser = isLoggedIn ? username : "defaultUser";

@@ -92,4 +92,16 @@ public class TaskController {
             return ResponseEntity.notFound().build();
         }
     }
+
+    @GetMapping("/tasks/user/{username}")
+    @ApiOperation(value = "Fetching tasks created by the logged-in user")
+    public ResponseEntity<List<Task>> getTasksCreatedByLoggedInUser(@PathVariable String username) {
+        log.info("REST request to get tasks created by user: {}", username);
+        List<Task> userTasks = taskService.findTasksByCreatedBy(username);
+        if (!userTasks.isEmpty()) {
+            return ResponseEntity.ok(userTasks);
+        } else {
+            return ResponseEntity.notFound().build();
+        }
+    }
 }

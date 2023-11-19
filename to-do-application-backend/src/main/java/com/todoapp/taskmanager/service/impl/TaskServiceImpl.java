@@ -39,4 +39,9 @@ public class TaskServiceImpl implements TaskService {
     public void deleteById(String id) {
         taskRepository.deleteById(id);
     }
+
+    @Override
+    public List<Task> findTasksByCreatedBy(String createdBy) {
+        return taskRepository.findByCreatedBy(createdBy);
+    }
 }

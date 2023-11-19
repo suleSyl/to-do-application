@@ -17,4 +17,6 @@ public interface TaskService {
 	public Task save(Task task);
 	public Task updateTask(String id, Task updatedTask);
 	public void deleteById(String id);
+	public List<Task> findTasksByCreatedBy(String createdBy);
+
 }

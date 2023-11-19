@@ -1,13 +1,12 @@
 package com.todoapp.taskmanager.repository;
 
-import org.springframework.data.couchbase.core.query.N1qlPrimaryIndexed;
-import org.springframework.data.couchbase.core.query.ViewIndexed;
+import com.todoapp.taskmanager.models.Task;
 import org.springframework.data.couchbase.repository.CouchbaseRepository;
 import org.springframework.stereotype.Repository;
 
-import com.todoapp.taskmanager.models.Task;
+import java.util.List;
 
 @Repository
 public interface TaskRepository extends CouchbaseRepository<Task, String> {
-
+    List<Task> findByCreatedBy(String createdBy);
 }
