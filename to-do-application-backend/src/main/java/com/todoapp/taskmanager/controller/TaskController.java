@@ -1,5 +1,6 @@
 package com.todoapp.taskmanager.controller;
 
+import java.util.Collections;
 import java.util.List;
 import java.util.Optional;
 import javax.validation.Valid;
@@ -101,7 +102,7 @@ public class TaskController {
         if (!userTasks.isEmpty()) {
             return ResponseEntity.ok(userTasks);
         } else {
-            return ResponseEntity.notFound().build();
+            return ResponseEntity.ok(Collections.emptyList());
         }
     }
 }

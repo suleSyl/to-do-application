@@ -1,4 +1,3 @@
-import logo from './logo.svg';
 import './App.css';
 import './style/custom-style.css';
 import Task from './components/Task';
@@ -13,11 +12,28 @@ function App() {
   const [isRegisterMode, setIsRegisterMode] = useState(false);
 
   const handleLogin = () => {
-      if (username === 'user' && password === 'password') {
-        setIsLoggedIn(true);
-      } else {
-        alert('Invalid username or password');
-      }
+      fetch('http://localhost:8080/api/login', {
+              method: 'POST',
+              headers: {
+                  'Content-Type': 'application/json',
+              },
+              body: JSON.stringify({
+                  username: username,
+                  password: password,
+              }),
+          })
+          .then(response => {
+              if (response.ok) {
+                  setIsLoggedIn(true);
+                  setTasks(null);
+              } else {
+                  alert('Invalid username or password');
+              }
+          })
+          .catch(error => {
+              console.error('Error occured during login:', error);
+              alert('Error occurred during login');
+          });
   };
 
   const handleRegister = () => {
@@ -34,13 +50,14 @@ function App() {
               .then(response => {
                   if (response.ok) {
                       alert('User registered successfully');
+                      setTasks(null);
                   } else {
                       alert('Failed to register user');
                   }
               })
               .catch(error => {
                   console.error('Error during registration:', error);
-                  alert('An error occurred during registration');
+                  alert('Error occurred during registration');
               });
     };
 
@@ -48,6 +65,7 @@ function App() {
       setIsLoggedIn(false);
       setUsername('');
       setPassword('');
+      setTasks(null);
   };
 
   useEffect(() => {
@@ -64,7 +82,7 @@ function App() {
 
   function createNewTask() {
      const createdByUser = isLoggedIn ? username : "defaultUser";
-     fetch("http://localhost:8080/api/tasks", {
+     fetch('http://localhost:8080/api/tasks', {
         headers: {
             "content-type": "application/json",
         },

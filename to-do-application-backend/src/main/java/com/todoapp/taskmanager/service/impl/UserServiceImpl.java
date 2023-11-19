@@ -10,8 +10,11 @@ import java.util.List;
 
 @Service
 public class UserServiceImpl implements UserService {
+    private final UserRepository userRepository;
     @Autowired
-    private UserRepository userRepository;
+    public UserServiceImpl(UserRepository userRepository) {
+        this.userRepository = userRepository;
+    }
     @Override
     public User registerUser(User user) {
         return userRepository.save(user);
@@ -19,5 +22,10 @@ public class UserServiceImpl implements UserService {
     @Override
     public List<User> findAll() {
         return userRepository.findAll();
+    }
+    @Override
+    public boolean validateUser(String username, String password) {
+        User user = userRepository.findByUsername(username);
+        return user != null && password.equals(user.getPassword());
     }
 }

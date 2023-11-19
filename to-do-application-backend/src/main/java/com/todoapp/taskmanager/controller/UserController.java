@@ -31,8 +31,12 @@ public class UserController {
     }
 
     @PostMapping("/login")
-    public ResponseEntity<String> loginUser(@RequestBody LoginDTO login) {
-        log.info("REST request to login User: {}", login);
-        return ResponseEntity.ok("Login successful");
+    public ResponseEntity<String> loginUser(@RequestBody User user) {
+        log.info("REST request to login User: {}", user);
+        if (userService.validateUser(user.getUsername(), user.getPassword())) {
+            return ResponseEntity.ok("Login successful");
+        } else {
+            return ResponseEntity.status(HttpStatus.UNAUTHORIZED).body("Invalid username or password");
+        }
     }
 }
