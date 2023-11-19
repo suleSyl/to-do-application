@@ -63,6 +63,7 @@ function App() {
   }, [tasks]);
 
   function createNewTask() {
+     const createdByUser = isLoggedIn ? username : "defaultUser";
      fetch("http://localhost:8080/api/tasks", {
         headers: {
             "content-type": "application/json",
@@ -71,7 +72,7 @@ function App() {
         body: JSON.stringify({
             desc: "",
             isCompleted: false,
-            createdBy: "defaultUser",
+            createdBy: createdByUser,
         }),
      })
      .then((response) => response.json())
