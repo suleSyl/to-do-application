@@ -12,6 +12,7 @@ body {
   box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
   padding: 20px;
   border-radius: 5px;
+  position: relative;
 }
 
 .header {
@@ -24,6 +25,7 @@ body {
 .header h1 {
   font-size: 24px;
   color: #333;
+  padding: 40px;
 }
 
 .add-button {
@@ -37,6 +39,12 @@ body {
   transition: background-color 0.3s ease;
 }
 
+.logout-button {
+  position: absolute;
+  bottom: 10px;
+  right: 20px;
+}
+
 .add-button:hover {
   background-color: #45a049;
 }
@@ -44,4 +52,41 @@ body {
 .task-list {
   list-style-type: none;
   padding: 0;
+}
+
+.auth-form-group {
+  margin-bottom: 10px;
+}
+
+.auth-label {
+  display: block;
+  margin-bottom: 5px;
+}
+
+.auth-input {
+  width: 100%;
+  box-sizing: border-box;
+}
+
+.button-group {
+      display: flex;
+      justify-content: space-between;
+}
+
+.btn-primary {
+      background-color: #008CBA;
+      color: white;
+      padding: 10px 15px;
+      border: none;
+      border-radius: 5px;
+      cursor: pointer;
+}
+
+.btn-secondary {
+      background-color: #D3D5DE;
+      color: black;
+      padding: 10px 15px;
+      border: none;
+      border-radius: 5px;
+      cursor: pointer;
 }
