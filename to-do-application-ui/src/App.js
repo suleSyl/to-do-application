@@ -27,7 +27,7 @@ function App() {
         },
         method: "POST",
         body: JSON.stringify({
-            name: "",
+            desc: "",
             isCompleted: false,
             createdBy: "defaultUser",
         }),

@@ -26,16 +26,14 @@ public class TaskServiceImpl implements TaskService {
     }
     @Override
     public Task updateTask(String id, Task updatedTask) {
-        Optional<Task> existingTask = taskRepository.findById(id);
-        if (existingTask.isPresent()) {
-            Task taskToUpdate = existingTask.get();
-            taskToUpdate.setName(updatedTask.getName());
-            taskToUpdate.setCompleted(updatedTask.isCompleted());
-            taskToUpdate.setCreatedBy(updatedTask.getCreatedBy());
-            return taskRepository.save(taskToUpdate);
-        } else {
-            throw new RuntimeException("No task found with id: " + id);
-        }
+        return taskRepository.findById(id)
+                .map(existingTask -> {
+                    existingTask.setDesc(updatedTask.getDesc());
+                    existingTask.setCompleted(updatedTask.isCompleted());
+                    existingTask.setCreatedBy(updatedTask.getCreatedBy());
+                    return taskRepository.save(existingTask);
+                })
+                .orElseThrow(() -> new RuntimeException("No task found with id: " + id));
     }
     @Override
     public void deleteById(String id) {

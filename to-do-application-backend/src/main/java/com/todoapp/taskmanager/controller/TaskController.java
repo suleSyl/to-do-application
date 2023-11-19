@@ -26,11 +26,9 @@ public class TaskController {
         this.taskService = taskService;
     }
     @PostConstruct
-    public void initExampleTaskRepo() {
+    public void initSampleTaskRepo() {
         try {
-            taskService.save(new Task( "example1",  true, "user"));
-            taskService.save(new Task( "example2",  true, "user"));
-            taskService.save(new Task( "example3",  false, "newUser"));
+            taskService.save(new Task( "example1",  false, "user"));
             log.info("Task saved successfully");
         } catch (Exception e) {
             log.error("Error occured while saving");
@@ -68,7 +66,6 @@ public class TaskController {
     @ApiOperation(value = "Updating task by Id")
     public ResponseEntity<Task> updateTaskById(@PathVariable String id, @RequestBody Task updatedTask) {
         log.info("REST request to update Task. Id: {} Task: ", id, updatedTask);
-        Optional<Task> existingTask = taskService.findById(id);
         try {
             Task updatedTaskResult = taskService.updateTask(id, updatedTask);
             return ResponseEntity.ok(updatedTaskResult);
@@ -94,10 +91,5 @@ public class TaskController {
         } else {
             return ResponseEntity.notFound().build();
         }
-    }
-
-    @GetMapping(path = "/test")
-    public Task getExample() {
-        return Task.builder().id("3").name("exmp").build();
     }
 }

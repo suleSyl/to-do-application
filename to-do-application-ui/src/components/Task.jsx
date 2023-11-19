@@ -32,7 +32,7 @@ const Task = (props) => {
 
     function updateTask(e) {
         setModified(true);
-        setTask({ ...task, name: e.target.value });
+        setTask({ ...task, desc: e.target.value });
     }
 
     function deleteTask() {
@@ -63,9 +63,9 @@ const Task = (props) => {
                 onChange={updateIsCompleted}
             />
             {task.completed ? (
-                <span style={{ textDecoration: "line-through" }}>{task.name}</span>
+                <span style={{ textDecoration: "line-through" }}>{task.desc}</span>
             ) : (
-                <input type="text" value={task.name} onChange={updateTask} />
+                <input type="text" value={task.desc} onChange={updateTask} />
             )}
             <span
                 style={{ marginLeft: "2rem", cursor: "pointer" }}

@@ -13,8 +13,6 @@ import org.springframework.data.couchbase.core.mapping.id.GeneratedValue;
 import org.springframework.data.couchbase.core.mapping.id.GenerationStrategy;
 
 import javax.persistence.Entity;
-import javax.validation.constraints.NotEmpty;
-import javax.validation.constraints.NotNull;
 
 @Entity
 @Data
@@ -28,15 +26,15 @@ public class Task {
 	@GeneratedValue(strategy = GenerationStrategy.UNIQUE)
 	@ApiModelProperty(value = "unique id field of task object")
 	private String id;
-	@ApiModelProperty(value = "name field of task object")
-	private String name;
+	@ApiModelProperty(value = "description field of task object")
+	private String desc;
 	@ApiModelProperty(value = "isCompleted field showing whether the task has been done or not")
 	private boolean isCompleted;
 	@ApiModelProperty(value = "createdBy field showing who created the task")
 	private String createdBy;
 
-	public Task(String name, boolean isCompleted, String createdBy) {
-		this.name = name;
+	public Task(String desc, boolean isCompleted, String createdBy) {
+		this.desc = desc;
 		this.isCompleted = isCompleted;
 		this.createdBy = createdBy;
 	}
