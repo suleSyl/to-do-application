@@ -3,6 +3,7 @@ import './App.css';
 import './style/custom-style.css';
 import Task from './components/Task';
 import { useEffect, useState } from 'react';
+import Utils from './utility/Util';
 
 function App() {
   const [tasks, setTasks] = useState(null);
@@ -20,8 +21,28 @@ function App() {
   };
 
   const handleRegister = () => {
-        alert('User registered successfully');
-  };
+          const newUser = {
+                  username: username,
+                  password: password
+          };
+
+          fetch('http://localhost:8080/api/register', {
+                  method: 'POST',
+                  headers: Utils.getHeaders(),
+                  body: JSON.stringify(newUser),
+              })
+              .then(response => {
+                  if (response.ok) {
+                      alert('User registered successfully');
+                  } else {
+                      alert('Failed to register user');
+                  }
+              })
+              .catch(error => {
+                  console.error('Error during registration:', error);
+                  alert('An error occurred during registration');
+              });
+    };
 
   const handleLogout = () => {
       setIsLoggedIn(false);

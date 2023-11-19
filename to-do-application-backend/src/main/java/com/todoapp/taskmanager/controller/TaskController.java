@@ -65,7 +65,7 @@ public class TaskController {
     @PutMapping("/tasks/{id}")
     @ApiOperation(value = "Updating task by Id")
     public ResponseEntity<Task> updateTaskById(@PathVariable String id, @RequestBody Task updatedTask) {
-        log.info("REST request to update Task. Id: {} Task: ", id, updatedTask);
+        log.info("REST request to update Task. Id: {} Task: {} ", id, updatedTask);
         try {
             Task updatedTaskResult = taskService.updateTask(id, updatedTask);
             return ResponseEntity.ok(updatedTaskResult);
