@@ -26,15 +26,6 @@ public class TaskController {
     public TaskController(TaskService taskService) {
         this.taskService = taskService;
     }
-    @PostConstruct
-    public void initSampleTaskRepo() {
-        try {
-            taskService.save(new Task( "example1",  false, "user"));
-            log.info("Task saved successfully");
-        } catch (Exception e) {
-            log.error("Error occured while saving");
-        }
-    }
 
     @GetMapping("/tasks/{id}")
     @ApiOperation(value = "Fetching task by Id")
@@ -95,7 +86,7 @@ public class TaskController {
     }
 
     @GetMapping("/tasks/user/{username}")
-    @ApiOperation(value = "Fetching tasks created by the logged-in user")
+    @ApiOperation(value = "Fetching tasks created by the logged in user")
     public ResponseEntity<List<Task>> getTasksCreatedByLoggedInUser(@PathVariable String username) {
         log.info("REST request to get tasks created by user: {}", username);
         List<Task> userTasks = taskService.findTasksByCreatedBy(username);

@@ -1,9 +1,9 @@
 package com.todoapp.taskmanager.controller;
 
-import com.todoapp.taskmanager.dto.LoginDTO;
 import com.todoapp.taskmanager.models.User;
 import com.todoapp.taskmanager.service.UserService;
 import io.swagger.annotations.Api;
+import io.swagger.annotations.ApiOperation;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.http.HttpStatus;
@@ -24,6 +24,7 @@ public class UserController {
         this.userService = userService;    }
 
     @PostMapping("/register")
+    @ApiOperation(value = "Registering a new user")
     public ResponseEntity<User> registerUser(@Valid @RequestBody User user) {
         log.info("REST request to register User: {}", user);
         User registeredUser = userService.registerUser(user);
@@ -31,6 +32,7 @@ public class UserController {
     }
 
     @PostMapping("/login")
+    @ApiOperation(value = "User login to the system")
     public ResponseEntity<String> loginUser(@RequestBody User user) {
         log.info("REST request to login User: {}", user);
         if (userService.validateUser(user.getUsername(), user.getPassword())) {
